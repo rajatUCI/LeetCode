@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int reverse(int x) {  
+        vector<int> myvector;  
+        int a = 0;
+        bool sign = false;
+        if(x < 0){
+            sign = true;
+            x = -1 * x;
+        }
+        while(x > 0){
+            a = x % 10;
+            myvector.push_back(a);
+            x = x / 10;
+        }
+        
+        long long result = 0;
+        long exp = 1;
+        for(int i = myvector.size()-1 ; i>=0 ; i--){
+            result = result + (long long)(exp*myvector[i]);
+            exp = exp*10;
+        }
+        
+        if(sign){
+            result = -1*result;
+        }
+        
+        if(result > INT_MAX || result < INT_MIN)
+            return 0;
+        
+        return (int)result;
+    }
+};
