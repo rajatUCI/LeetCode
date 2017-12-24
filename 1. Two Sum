@@ -1,0 +1,30 @@
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> result;
+        
+        unordered_map <int,int> mymap;
+        mymap.insert(make_pair(nums[0],0));
+    
+        int complement = 0;
+        for(int i=1; i < nums.size(); i++){
+            complement = target - nums[i];
+            auto iterator = mymap.find(complement);
+            if(iterator == mymap.end()){
+                mymap.insert(make_pair(nums[i],i));
+            }
+            else{
+                result.push_back(iterator->second);
+                result.push_back(i);
+                break;
+            }
+        }
+        return result;
+    }
+};
