@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        unordered_map <char, int> mymap;
+        for(int i=0; i< s1.size(); i++){
+            auto it = mymap.find(s1[i]);
+            if(it == mymap.end()){
+                mymap.insert(make_pair(s1[i], 1));
+            }
+            else{
+                mymap[it->first] = it->second + 1;
+            }    
+        }
+        int count = 0;
+        unordered_map <char, int> temp_map = mymap;
+        for(int i=0; i< s2.size(); i++){             
+            auto it = temp_map.find(s2[i]);
+            if(it == temp_map.end()){
+                temp_map.clear();
+                temp_map = mymap;
+                count = 0;
+            }
+            else{
+                count++; 
+                if(it->second == 1){
+                    temp_map.erase(it->first);
+                }
+                else{
+                    temp_map[it->first] = it->second - 1;
+                }
+                if(count == s1.size()){
+                    return true;
+                }
+            }      
+        }      
+        return false;         
+    }
+};
