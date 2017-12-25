@@ -1,0 +1,45 @@
+class Solution {
+public:   
+    int compress(vector<char>& chars) {
+        vector<char> myvec = chars;
+        chars.clear();
+        int count = 0;
+        char prev;
+        for(int i=0; i < myvec.size();i++){
+            if(i==0){
+                prev = myvec[i];
+                count++;
+            }
+            else{
+                if(prev == myvec[i]){
+                    count++;
+                }
+                else{
+                    chars.push_back(prev);
+                    if(count != 1){
+                        string counter = to_string(count);
+                        for(int i=0; i<counter.size();i++){
+                            chars.push_back(counter[i]);
+                        }
+                    }
+                    prev = myvec[i];
+                    count = 1;
+                }
+            }
+            if(i == myvec.size() - 1){
+                chars.push_back(prev);
+                if(count != 1){
+                    string counter = to_string(count);
+                    for(int i=0; i<counter.size();i++){
+                        chars.push_back(counter[i]);
+                    }
+                }
+            }
+        }
+        if(chars.size() > myvec.size()){
+            chars.clear();
+            chars = myvec;
+        }
+        return chars.size();
+    }
+};
