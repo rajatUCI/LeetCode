@@ -1,45 +1,36 @@
 class Solution {
-public:   
+public:
+    void inPlace(vector<char>& chars, int &i1, int &i2, int &count){
+        i1++;
+        if(count != 1){
+            string counter = to_string(count);
+            for(int j=0; j<counter.size(); j++){
+                chars[i1+j] = counter[j];
+            }
+            i1 += counter.size();
+            chars[i1] = chars[i2];
+            count = 1;
+        }
+        else{
+            chars[i1] = chars[i2];
+        }
+    }
     int compress(vector<char>& chars) {
-        vector<char> myvec = chars;
-        chars.clear();
-        int count = 0;
-        char prev;
-        for(int i=0; i < myvec.size();i++){
-            if(i==0){
-                prev = myvec[i];
-                count++;
+        if(chars.size() == 1){
+            return 1;
+        }   
+        int i1, i2, count;
+        i1 = 0; i2 = 0; count = 1;
+        for(int i = 1; i<chars.size(); i++){
+            i2 = i;
+            if(chars[i1] == chars[i2]){
+                count ++;
             }
             else{
-                if(prev == myvec[i]){
-                    count++;
-                }
-                else{
-                    chars.push_back(prev);
-                    if(count != 1){
-                        string counter = to_string(count);
-                        for(int i=0; i<counter.size();i++){
-                            chars.push_back(counter[i]);
-                        }
-                    }
-                    prev = myvec[i];
-                    count = 1;
-                }
-            }
-            if(i == myvec.size() - 1){
-                chars.push_back(prev);
-                if(count != 1){
-                    string counter = to_string(count);
-                    for(int i=0; i<counter.size();i++){
-                        chars.push_back(counter[i]);
-                    }
-                }
+                inPlace(chars, i1, i2, count);
             }
         }
-        if(chars.size() > myvec.size()){
-            chars.clear();
-            chars = myvec;
-        }
-        return chars.size();
+        inPlace(chars, i1, i2, count);
+        return i1;
     }
 };
