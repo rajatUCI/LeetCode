@@ -1,35 +1,8 @@
 class Solution {
 public:
     string reverseStr(string s, int k) {
-        int a = 0;
-        if(s.size() < k){
-            reverse(s.begin(), s.end());
-            return s;
-        }
-        else if(s.size() < (2*k)){
-            reverse(s.begin(), s.begin() + k);
-            return s;
-        }
-        auto rev_begin = s.begin();
-        auto rev_end = rev_begin + k;    
-        while(a < s.size()){
-            reverse(rev_begin, rev_end);
-            rev_begin = rev_begin + (2*k);
-            rev_end = rev_begin + k; 
-            a += (2*k);
-        }
-        if(rev_begin == s.end()){
-            return s;
-        }
-        else{
-            int difference = s.end() - rev_begin;
-            if(difference < k){
-                reverse(rev_begin, s.end());
-            }
-            else{
-                rev_end = rev_begin + k;
-                reverse(rev_begin, rev_end);
-            }
+        for(int i=0; i < s.size(); i += 2*k){
+            reverse(s.begin() + i, min(s.begin() + i + k, s.end()));
         }
         return s;
     }
