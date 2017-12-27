@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void pushString(string &next_res, char &prev, string &count, int &count1, int &count2){
+        if(prev == '1'){
+            count = to_string(count1);
+            next_res += count;
+            next_res += prev;
+        }
+        else{
+            count = to_string(count2);
+            next_res += count;
+            next_res += prev;
+        }
+    }
+    string countAndSay(int n) {
+        string result = "1";
+        string next_res = "";
+        char prev;
+        if(n==1)
+            return result;
+        int count1, count2;
+        string count = "";
+        for(int i= 1; i < n; i++){
+            count1 = count2 = 1;
+            prev = result[0];
+            for(int j=1; j < result.size(); j++){
+                if(result[j] == prev){
+                    if(result[j] == '1')
+                        count1++;
+                    else
+                        count2++;
+                }
+                else{
+                    pushString(next_res, prev, count, count1, count2);
+                    prev = result[j];
+                    count.clear();
+                    count1 = count2 = 1;
+                }     
+            }
+            pushString(next_res, prev, count, count1, count2);
+            result.clear();
+            result = next_res;
+            next_res.clear();
+        }
+        return result;
+    }
+};
