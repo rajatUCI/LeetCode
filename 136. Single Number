@@ -1,17 +1,10 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_set<int> myset;
-        int sum = 0;
-        int twice_sum = 0;
-        for(int i=0; i<nums.size(); i++){
-            sum += nums[i];
-            auto it = myset.find(nums[i]);
-            if(it == myset.end()){
-                myset.insert(nums[i]);
-                twice_sum += (2*nums[i]);
-            }
+        int result = 0;
+        for(int i=0; i< nums.size(); i++){
+            result ^= nums[i];
         }
-        return (twice_sum-sum);
+        return result;
     }
 };
