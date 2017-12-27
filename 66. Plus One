@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int> result;
+        if(digits[0] == 0){
+            result.push_back(1);
+            return result;
+        }
+        result = digits;
+        int carry = 1;
+        for(int i = digits.size()-1; i>=0; i--){
+            if(digits[i] != 9){
+                result[i] = result[i] + carry;
+                carry = 0;
+                break;
+            }
+            else{
+                result[i] = 0;
+            }
+        }
+        if(carry == 1){
+            result.insert(result.begin(), carry);
+        }
+        return result;    
+    }
+};
