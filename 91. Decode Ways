@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        if(s.size() == 0 || s[0] == '0'){
+            return 0;
+        }
+        for(int j=1; j < s.size(); j++){
+            if(s[j]=='0'){
+                if(s[j-1]=='1' || s[j-1]=='2'){
+                    s[j-1] = ' ';
+                    s[j] = ' ';
+                }
+                else
+                    return 0;
+            }
+        }
+        int i1, i2, result, i;
+        i1 = i2 = result = 0;
+        // Calculating i1 and i2
+        for(i=0; i < (s.size()-1); i++){
+            if(s[i]=='1' && s[i+1]!=' ')
+                i1++;
+            else if(s[i]=='2' && (s[i+1] <= '6') && s[i+1]!=' ')
+                i2++;
+        }
+        int x = (int)pow(2,i1);
+        int y = (int)pow(2,i2);
+        result = 1 + (x-1) + (y-1) + ((x-1)*(y-1));
+        return result;
+    }
+};
