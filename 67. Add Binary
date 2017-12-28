@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int convertToInteger(string &str){
+        int m = 1;
+        int sum = 0;
+        for(int i = str.size() - 1; i >= 0; i--){
+            if(str[i] == '1'){
+                sum += m;
+            }
+            m *= 2;
+        }
+        return sum;
+    }
+    string convertToBinary(int &k){
+        string result =  "";
+        while(k > 0){
+            if(k % 2 == 0){
+                result = "0" + result;
+            }
+            else{
+                result = "1" + result;
+            }
+            k /= 2;
+        }
+        return result;
+    }
+    string addBinary(string a, string b) {
+        if(a == "0" && b == "0")
+            return "0";
+        int aa = convertToInteger(a);
+        int bb = convertToInteger(b);
+        int c = aa + bb;
+        string result = convertToBinary(c);
+        return result;
+    }
+};
