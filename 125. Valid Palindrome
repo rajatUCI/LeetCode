@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void cleanString(string &s, int &size){
+        size = 0;
+        for(int i=0; i<s.size(); i++){
+            s[i] = tolower(s[i]);
+            if((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= '0' && s[i] <= '9')){
+                s[size] = s[i];
+                size++;
+            }
+        }
+    }
+    bool isPalindrome(string s) {
+        if(s.size() == 0 || s.size() == 1)
+            return true;
+        int cursor1, cursor2, size;
+        cleanString(s, size);
+        cursor1 = 0; 
+        cursor2 = size - 1;
+        while(cursor1 < cursor2){
+            if(s[cursor1] != s[cursor2])
+                return false;
+            cursor1++;
+            cursor2--;
+        }
+        return true;
+    }
+};
