@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> result;
+        vector<int> temp;
+        if(numRows == 0)
+            return result;
+        temp.push_back(1);
+        result.push_back(temp);
+        int count = 0;
+        for(int i = 1; i < numRows; i++){
+            temp.erase(temp.begin(), temp.end());
+            temp.push_back(1);
+            for(int j = 0; j < (result[i-1].size()-1); j++){
+                count = result[i-1][j] + result[i-1][j+1];
+                temp.push_back(count);
+            }
+            temp.push_back(1);
+            reverse(temp.begin(), temp.end());
+            result.push_back(temp);
+        }
+        return result;        
+    }
+};
