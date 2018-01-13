@@ -1,0 +1,15 @@
+class Solution {
+public:
+    unordered_map<int,int> memomap;
+    int climbStairs(int n) {
+        if(n<=2){
+            memomap[n] = n;
+            return n;
+        }
+        auto it = memomap.find(n);
+        if(it != memomap.end())
+            return it->second;
+        memomap[n] = climbStairs(n-1) + climbStairs(n-2);
+        return memomap[n];
+    }
+};
