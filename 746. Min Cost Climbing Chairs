@@ -1,0 +1,20 @@
+class Solution {
+public:
+    unordered_map<int,int> memomap;
+    int minCostAtIndex(vector<int>& cost, int i){
+        if(i == 0 || i == 1){
+            memomap[i] = cost[i];
+            return cost[i];
+        }
+        auto it = memomap.find(i);
+        if(it != memomap.end()){
+            return it->second;
+        }  
+        memomap[i] = min(minCostAtIndex(cost,i-1) + cost[i], minCostAtIndex(cost,i-2) + cost[i]); 
+        return memomap[i];
+    }
+    
+    int minCostClimbingStairs(vector<int>& cost) {
+        return min(minCostAtIndex(cost, cost.size()-1), minCostAtIndex(cost, cost.size()-2));    
+    }
+};
