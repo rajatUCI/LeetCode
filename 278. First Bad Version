@@ -1,0 +1,24 @@
+// Forward declaration of isBadVersion API.
+bool isBadVersion(int version);
+
+class Solution {
+public:
+    int binarySearch(int n){
+        int first = 1, last = n;
+        while(last > first){
+            int mid = first + ((last-first)/2);
+            if(isBadVersion(mid)){
+                last = mid;
+            }
+            else{
+                first = mid + 1;
+            }
+            mid = first + ((last-first)/2);
+        }
+        return first;
+    }
+    
+    int firstBadVersion(int n) {
+        return binarySearch(n);
+    }
+};
