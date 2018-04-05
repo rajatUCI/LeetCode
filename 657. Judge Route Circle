@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        unordered_map <char, int> robot_map;
+        for(int i = 0; i < moves.size(); i++){
+            robot_map[moves[i]]++;
+        }
+        auto it1 = robot_map.find('U');
+        auto it2 = robot_map.find('D');
+        auto it3 = robot_map.find('L');
+        auto it4 = robot_map.find('R');
+        
+        bool b1 = false, b2 = false;
+        
+        if(it1 != robot_map.end() && it2 != robot_map.end()){
+            b1 = (it1->second == it2->second);
+        }
+        else if(it1 == robot_map.end() && it2 == robot_map.end()){
+            b1 = true;
+        }
+        else 
+            b1 = false;
+        
+        if(it3 != robot_map.end() && it4 != robot_map.end()){
+            b2 = (it3->second == it4->second);
+        }
+        else if(it3 == robot_map.end() && it4 == robot_map.end()){
+            b2 = true;
+        }
+        else 
+            b2 = false;
+        
+        return b1 && b2;    
+    }
+};
