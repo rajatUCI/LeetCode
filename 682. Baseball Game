@@ -1,0 +1,43 @@
+class Solution {
+public:
+    void pushStack(stack<int> &s, int &sum, int element){
+        s.push(element);
+        sum += element;
+    }
+    void popStack(stack<int> &s, int &sum){
+        if(!s.empty()){
+            int element = s.top();
+            s.pop();
+            sum -= element;
+        }
+    }
+    void plusOperation(stack<int> &s, int &sum){
+        int element = s.top();
+        s.pop();
+        int push_element = element + s.top();
+        s.push(element);
+        pushStack(s, sum, push_element);
+    }
+    int calPoints(vector<string>& ops) {
+        int sum = 0;
+        int element = 0;
+        stack<int> s;
+        for(int i=0; i< ops.size(); i++){
+            if(ops[i] == "D"){
+                element = 2*(s.top());
+                pushStack(s, sum, element);
+            }
+            else if(ops[i] == "C"){
+                popStack(s, sum);
+            }
+            else if(ops[i] == "+"){
+                plusOperation(s, sum);
+            }
+            else{
+                element = stoi(ops[i]);
+                pushStack(s, sum, element);
+            }
+        }
+        return sum;
+    }
+};
