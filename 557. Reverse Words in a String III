@@ -1,0 +1,17 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string result = "";
+        string line;
+        stringstream ss(s);
+        bool flag = false;
+        while(getline(ss,line,' ')){
+            flag = true;
+            reverse(line.begin(), line.end());
+            result = result + line + " ";
+        }
+        if(flag)
+            result.resize(result.size()-1);
+        return result;
+    }
+};
