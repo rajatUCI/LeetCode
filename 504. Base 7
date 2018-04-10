@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string convertToBase7(int num) {
+        string result;
+        stack<int> remainders;
+        bool negative_flag = false;
+        if(num < 0){
+            negative_flag = true;
+            num = -1*num;
+        }
+        else if(num == 0){
+            result = "0";
+            return result;
+        }
+        while(num > 0){
+            remainders.push(num % 7);
+            num /= 7;
+        }
+        while(!remainders.empty()){
+            result += to_string(remainders.top());
+            remainders.pop();
+        }
+        if(negative_flag){
+            result = "-" + result;
+        }
+        return result;
+    }
+};
